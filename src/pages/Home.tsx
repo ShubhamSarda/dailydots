@@ -89,14 +89,20 @@ export function Home() {
           </h2>
           <form onSubmit={handleQuickAdd} className="space-y-4">
             <MoodSelector value={mood} onChange={setMood} />
-            <textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              required
-              rows={6}
-              placeholder="How was your day?"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:border-blue-500 transition-colors resize-none"
-            />
+            <div>
+              <label htmlFor="entry-content" className="block text-sm font-medium text-gray-700 mb-2">
+                What's on your mind?
+              </label>
+              <textarea
+                id="entry-content"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                required
+                rows={6}
+                placeholder="Write about your day..."
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:border-blue-500 transition-colors resize-none"
+              />
+            </div>
             <div className="flex gap-3">
               <button
                 type="submit"
@@ -144,13 +150,13 @@ export function Home() {
           </div>
           <div className="space-y-3">
             {recentEntries.map((entry) => (
-              <article
+              <button
                 key={entry.date}
                 onClick={() => navigate(`/new?date=${entry.date}`)}
-                className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 cursor-pointer hover:shadow-md transition-shadow"
+                className="w-full bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 text-left"
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl">{entry.mood.split(' ')[0]}</span>
+                  <span className="text-2xl" aria-hidden="true">{entry.mood.split(' ')[0]}</span>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-gray-900">
                       {formatDate(entry.date)}
@@ -160,7 +166,7 @@ export function Home() {
                     </p>
                   </div>
                 </div>
-              </article>
+              </button>
             ))}
           </div>
         </section>
