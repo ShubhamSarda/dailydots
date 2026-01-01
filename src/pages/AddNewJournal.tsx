@@ -128,9 +128,14 @@ export function AddNewJournal() {
           <MoodSelector value={mood} onChange={setMood} />
 
           <div>
-            <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
-              Journal Entry
-            </label>
+            <div className="flex items-center justify-between mb-2">
+              <label htmlFor="content" className="block text-sm font-medium text-gray-700">
+                Journal Entry
+              </label>
+              <span className="text-xs text-gray-500">
+                {content.length} characters
+              </span>
+            </div>
             <textarea
               id="content"
               value={content}

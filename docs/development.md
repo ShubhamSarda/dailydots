@@ -41,11 +41,11 @@ The app will be available at `http://localhost:5173`.
 npm run dev          # Start dev server with hot reload
 
 # Production
-npm run build        # Type check + build for production
+npm run build        # Type check + build for production (runs tsc -b && vite build)
 npm run preview      # Preview production build locally
 
 # Code Quality
-npm run lint         # Run ESLint
+npm run lint         # Run ESLint on all source files
 ```
 
 ---
@@ -54,9 +54,9 @@ npm run lint         # Run ESLint
 
 ### Tech Stack Summary
 
-- **Vite** - Fast build tool and dev server
+- **Vite 7** - Fast build tool and dev server
 - **React 19** - UI library
-- **TypeScript** - Type safety and developer experience
+- **TypeScript 5.9** - Type safety and developer experience
 - **React Router 7** - Routing and navigation
 - **Tailwind CSS 4** - Utility-first styling
 - **localStorage** - Client-side data persistence

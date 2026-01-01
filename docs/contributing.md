@@ -74,10 +74,12 @@ Thank you for your interest in contributing to Daily Dots! This guide will help 
 3. **Test your changes locally:**
 
    ```bash
-   npm run dev      # Manual testing
+   npm run dev      # Manual testing in browser
    npm run lint     # Check for linting errors
-   npm run build    # Ensure build succeeds
+   npm run build    # Ensure TypeScript compiles and build succeeds
    ```
+
+   Note: Automated tests are not yet implemented. Manual testing is required.
 
 4. **Commit your changes:**
 

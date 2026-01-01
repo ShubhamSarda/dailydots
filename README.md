@@ -14,8 +14,8 @@ Daily Dots helps you:
 
 - **React 19** - UI framework
 - **TypeScript** - Type safety
-- **Vite** - Build tool and dev server
-- **React Router** - Client-side routing
+- **Vite 7** - Build tool and dev server
+- **React Router 7** - Client-side routing
 - **Tailwind CSS 4** - Utility-first styling
 - **localStorage** - Data persistence (frontend-only, no backend required)
 
@@ -95,7 +95,7 @@ src/
 
 ## Data Storage
 
-Currently, all journal entries are stored in **localStorage** in your browser. No backend is required.
+Currently, all journal entries are stored in **localStorage** in your browser. No backend or database is required. Data persists across sessions but is device-specific and browser-specific.
 
 **Key:** `dailydots_journal_entries`
 
@@ -133,10 +133,12 @@ VITE_SUPABASE_ANON_KEY=your-anon-key
 
 ## Browser Support
 
-Modern browsers with ES6+ support:
+Modern browsers with ES2020+ support:
 - Chrome/Edge 90+
 - Firefox 88+
 - Safari 14+
+
+Note: Data is stored in localStorage, which is supported by all modern browsers.
 
 ## License
 
