@@ -71,6 +71,7 @@ export function MoodCalendar({ entries }: MoodCalendarProps) {
     }
 
     // Add padding days from next month to complete the grid
+    // When days.length % 7 === 0, we have a full row and don't need padding
     const remainingDays = 7 - (days.length % 7);
     if (remainingDays !== 7) {
       for (let day = 1; day <= remainingDays; day++) {
@@ -104,6 +105,7 @@ export function MoodCalendar({ entries }: MoodCalendarProps) {
   const calendarDays = getCalendarDays();
   const monthName = currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const todayString = new Date().toISOString().split('T')[0];
 
   /**
    * Get CSS classes for a calendar day cell
@@ -181,7 +183,7 @@ export function MoodCalendar({ entries }: MoodCalendarProps) {
           const entry = entryMap.get(dateString);
           const hasEntry = !!entry;
           const moodColors = entry ? MOOD_COLORS[entry.mood] : null;
-          const isToday = dateString === new Date().toISOString().split('T')[0];
+          const isToday = dateString === todayString;
 
           return (
             <button
