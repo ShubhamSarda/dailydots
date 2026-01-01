@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useJournal } from '../hooks/useJournalContext';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { Modal } from '../components/Modal';
+import { MoodCalendar } from '../components/MoodCalendar';
 import type { JournalEntry } from '../types/journal';
 
 /**
@@ -51,6 +52,12 @@ export function MyJournals() {
           {entries.length} {entries.length === 1 ? 'entry' : 'entries'}
         </span>
       </div>
+
+      {entries.length > 0 && (
+        <div className="mb-6">
+          <MoodCalendar entries={entries} />
+        </div>
+      )}
 
       {entries.length === 0 ? (
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
