@@ -72,7 +72,7 @@ export function MoodCalendar({ entries }: MoodCalendarProps) {
 
     // Add padding days from next month to complete the grid
     const remainingDays = 7 - (days.length % 7);
-    if (remainingDays < 7) {
+    if (remainingDays !== 7) {
       for (let day = 1; day <= remainingDays; day++) {
         const date = new Date(year, month + 1, day);
         days.push({
@@ -104,6 +104,35 @@ export function MoodCalendar({ entries }: MoodCalendarProps) {
   const calendarDays = getCalendarDays();
   const monthName = currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  /**
+   * Get CSS classes for a calendar day cell
+   */
+  const getDayClassName = (
+    isCurrentMonth: boolean,
+    hasEntry: boolean,
+    moodColors: typeof MOOD_COLORS[MoodType] | null,
+    isToday: boolean
+  ): string => {
+    const baseClasses = 'aspect-square p-1 text-sm rounded-lg border transition-all';
+    
+    // Text color based on month
+    const textColor = !isCurrentMonth ? 'text-gray-300' : 'text-gray-700';
+    
+    // Entry styling
+    const entryClasses = hasEntry && moodColors
+      ? `${moodColors.bg} ${moodColors.border} ${moodColors.text} hover:opacity-80 cursor-pointer`
+      : 'border-transparent bg-white hover:bg-gray-50';
+    
+    // Today indicator
+    const todayBorder = isToday && !hasEntry ? 'border-blue-500 font-semibold' : '';
+    const todayRing = isToday && hasEntry ? 'ring-2 ring-blue-400 ring-offset-1' : '';
+    
+    // Focus styles
+    const focusStyles = hasEntry ? 'focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2' : '';
+    
+    return `${baseClasses} ${textColor} ${entryClasses} ${todayBorder} ${todayRing} ${focusStyles}`.trim();
+  };
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
@@ -159,14 +188,7 @@ export function MoodCalendar({ entries }: MoodCalendarProps) {
               key={dateString}
               onClick={() => hasEntry && handleDateClick(dateString)}
               disabled={!hasEntry}
-              className={`
-                aspect-square p-1 text-sm rounded-lg border transition-all
-                ${!isCurrentMonth ? 'text-gray-300' : 'text-gray-700'}
-                ${hasEntry && moodColors ? `${moodColors.bg} ${moodColors.border} ${moodColors.text} hover:opacity-80 cursor-pointer` : 'border-transparent bg-white hover:bg-gray-50'}
-                ${isToday && !hasEntry ? 'border-blue-500 font-semibold' : ''}
-                ${isToday && hasEntry ? 'ring-2 ring-blue-400 ring-offset-1' : ''}
-                ${hasEntry ? 'focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2' : ''}
-              `}
+              className={getDayClassName(isCurrentMonth, hasEntry, moodColors, isToday)}
               aria-label={`${date.getDate()} ${entry ? `- ${moodColors?.label} mood` : ''}`}
             >
               <div className="flex items-center justify-center h-full font-medium">
