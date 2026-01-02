@@ -153,17 +153,22 @@ export function Home() {
               <button
                 key={entry.date}
                 onClick={() => navigate(`/new?date=${entry.date}`)}
-                className="bg-white rounded-lg border border-gray-200 p-4 hover:border-gray-300 hover:shadow-sm transition-all focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2 text-left group cursor-pointer"
+                className="bg-white rounded-lg border border-gray-200 p-5 hover:border-gray-300 hover:shadow-sm transition-all focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2 text-left group cursor-pointer"
               >
-                <div className="flex items-baseline gap-2 mb-2">
-                  <p className="text-sm font-semibold text-gray-900">
-                    {formatDate(entry.date)}
-                  </p>
-                  <span className="text-xs text-gray-500">
-                    {entry.mood.split(' ').slice(1).join(' ')}
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-2xl" aria-hidden="true">
+                    {entry.mood.split(' ')[0]}
                   </span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-gray-900">
+                      {formatDate(entry.date)}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {entry.mood.split(' ').slice(1).join(' ')}
+                    </p>
+                  </div>
                 </div>
-                <p className="text-sm text-gray-600 line-clamp-3 leading-relaxed mb-2">
+                <p className="text-sm text-gray-700 line-clamp-3 leading-relaxed mb-3">
                   {entry.content}
                 </p>
                 <span className="text-xs text-gray-400 group-hover:text-gray-600 transition-colors">
