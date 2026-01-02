@@ -22,6 +22,17 @@ const MOOD_COLORS: Record<MoodType, { bg: string; border: string; text: string; 
 };
 
 /**
+ * Format date to YYYY-MM-DD without timezone conversion
+ * This prevents off-by-one errors when converting to ISO string
+ */
+const formatDateString = (date: Date): string => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+/**
  * MoodCalendar component
  * Displays a monthly calendar view with mood-coded dates
  * Follows Notion-like minimal design with accessible colors
@@ -56,7 +67,7 @@ export function MoodCalendar({ entries }: MoodCalendarProps) {
       days.push({
         date,
         isCurrentMonth: false,
-        dateString: date.toISOString().split('T')[0],
+        dateString: formatDateString(date),
       });
     }
 
@@ -66,7 +77,7 @@ export function MoodCalendar({ entries }: MoodCalendarProps) {
       days.push({
         date,
         isCurrentMonth: true,
-        dateString: date.toISOString().split('T')[0],
+        dateString: formatDateString(date),
       });
     }
 
@@ -79,7 +90,7 @@ export function MoodCalendar({ entries }: MoodCalendarProps) {
         days.push({
           date,
           isCurrentMonth: false,
-          dateString: date.toISOString().split('T')[0],
+          dateString: formatDateString(date),
         });
       }
     }
@@ -105,7 +116,7 @@ export function MoodCalendar({ entries }: MoodCalendarProps) {
   const calendarDays = getCalendarDays();
   const monthName = currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
   const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const todayString = new Date().toISOString().split('T')[0];
+  const todayString = formatDateString(new Date());
 
   /**
    * Get CSS classes for a calendar day cell
