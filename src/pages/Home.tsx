@@ -136,35 +136,42 @@ export function Home() {
 
       {/* Recent Entries */}
       {recentEntries.length > 0 && (
-        <section>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-gray-900">
+        <section className="bg-white rounded-lg border border-gray-200">
+          <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+            <h2 className="text-base font-semibold text-gray-900">
               Recent Entries
             </h2>
             <button
               onClick={() => navigate('/journals')}
-              className="text-sm font-medium text-blue-600 hover:text-blue-700 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded cursor-pointer"
+              className="text-sm text-gray-600 hover:text-gray-900 focus-visible:ring-2 focus-visible:ring-gray-500 focus-visible:ring-offset-2 rounded transition-colors"
             >
-              View all →
+              View all
             </button>
           </div>
-          <div className="space-y-3">
+          <div className="divide-y divide-gray-200">
             {recentEntries.map((entry) => (
               <button
                 key={entry.date}
                 onClick={() => navigate(`/new?date=${entry.date}`)}
-                className="w-full bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 text-left"
+                className="w-full px-6 py-3 hover:bg-gray-50 transition-colors focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gray-500 text-left group"
               >
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl" aria-hidden="true">{entry.mood.split(' ')[0]}</span>
+                <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900">
-                      {formatDate(entry.date)}
-                    </p>
-                    <p className="text-sm text-gray-600 truncate">
+                    <div className="flex items-baseline gap-3 mb-1">
+                      <p className="text-sm font-medium text-gray-900">
+                        {formatDate(entry.date)}
+                      </p>
+                      <span className="text-xs text-gray-500">
+                        {entry.mood.split(' ').slice(1).join(' ')}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed">
                       {entry.content}
                     </p>
                   </div>
+                  <span className="text-gray-400 group-hover:text-gray-600 transition-colors text-sm mt-0.5">
+                    →
+                  </span>
                 </div>
               </button>
             ))}
